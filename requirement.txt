@@ -1,13 +1,12 @@
-streamlit==1.32.0
-streamlit-autorefresh==1.0.1
-numpy==1.26.4
-pandas==2.2.1
-yfinance==0.2.37
-ta==0.11.0
-torch==2.2.2
-plotly==5.19.0
-gymnasium==0.29.1
-stable-baselines3==2.3.0
-google-generativeai==0.5.4
-python-dotenv==1.0.1
-
+streamlit
+streamlit-autorefresh
+numpy
+pandas
+yfinance
+ta
+plotly
+gymnasium
+stable-baselines3
+google-generativeai
+python-dotenv
+torch --index-url https://download.pytorch.org/whl/cpu
