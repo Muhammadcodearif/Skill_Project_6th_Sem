@@ -415,29 +415,41 @@ if st.button("Train RL Agent"):
 
 # GENAI PANEL
 
-
-st.subheader("🧠AI Decision")
+st.subheader("🧠 AI Decision System")
 
 if gen_model:
 
-    prompt = f"""
-    Institutional Trading AI:
+    if "ai_decision" not in st.session_state:
+        st.session_state.ai_decision = None
 
-    Price: {latest_price}
-    Predicted: {pred_price}
-    Crash Risk: {crash_prob}
-    Signal: {signal}
+    if st.button("🧠 Generate AI Decision"):
 
-    Provide market insight and recommendation.
-    """
+        with st.spinner("AI is analyzing market..."):
 
-    try:
-        response = gen_model.generate_content(prompt)
-        decision = response.text if hasattr(response, "text") else str(response)
-        st.write(decision)
+            prompt = f"""
+            Institutional Trading AI:
 
-    except Exception as e:
-        st.warning(f"GenAI Error: {e}")
+            Price: {latest_price}
+            Predicted: {pred_price}
+            Crash Risk: {crash_prob}
+            Signal: {signal}
+
+            Provide market insight and recommendation.
+            """
+
+            try:
+                response = gen_model.generate_content(prompt)
+                decision = response.text if hasattr(response, "text") else str(response)
+
+                st.session_state.ai_decision = decision
+
+            except Exception as e:
+                st.warning(f"GenAI Error: {e}")
+
+    
+    if st.session_state.ai_decision:
+        st.success("AI Decision Generated ✅")
+        st.write(st.session_state.ai_decision)
 
 else:
-    st.info("Add GEMINI_API_KEY in .env to enable AI")
+    st.info("Add GEMINI_API_KEY")
